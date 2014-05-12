@@ -1,0 +1,113 @@
+<?php 
+
+class ReportController extends BaseController {
+	
+	public function index() 
+	{
+		return View::make('report_list');
+	}
+
+	public function ajaxReportList() 
+	{
+		$reports = DB::table('report')->get();
+		$reportPrint = '';
+		foreach( $reports as $report ){
+			$reportPrint .= '<li><a href="report/' 
+				. $report->sn . '">週報表'. $report->start . '~' . $report->end . '</a></li>';
+		}
+		return $reportPrint;
+	}
+
+	public function ajaxReportAdd()
+	{
+		$start = Input::get('start');
+		$end = Input::get('end');
+		DB::table('report')->insert(
+			array( 'start' => $start, 'end' => $end )
+		);
+		echo $start.' ~ '.$end;
+	}
+
+	public function showReport($id) 
+	{
+		$data['sn'] = $id;
+
+		$res = DB::table('report')->where('sn', $id)->first();
+		$print = $res->start .'~'. $res->end;
+		$data['period'] = $print;
+
+		$projects = DB::table('project')->get();
+		$selectPjPrint = '<option value="">-</option>';
+		foreach( $projects as $project)
+		{
+			$print .= '<option value="' . $project->sn.'">' . $project->name . '</option>';
+		}
+		$data['selectPj'] = $print;
+
+		return View::make('report', $data);
+	}
+
+	public function ajaxReportTable($id)
+	{
+		/* 取得該 report 涵蓋的所有 project */
+		$res = DB::table('task')->where('report', $id)->get();
+		foreach( $res as $tasks )
+		{
+			$projectArray[] = $tasks->project;
+		}
+		$projectArray = array_unique($projectArray);
+		$print = '';
+		/* GET TASKS OF THIS PROJECT */
+		if( $projectArray )
+		{
+			foreach( $projectArray as $projectSN )
+			{
+				/* GET PROJECT NAME */
+				$res = DB::table('project')->where('sn',$projectSN)->pluck('name');
+				$print .= '<p class="project-title">' . $res . '</p>';
+
+				/* GET ALL TYPE */
+				$res = DB::table('task')->select('type')->distinct()->where('report',$id)->where('project', $projectSN)->get();
+				unset($typeArray);
+				foreach( $res as $type ){  $typeArray[] = $type->type; };
+
+				/* PRINT ALL TYPES */
+				foreach( $typeArray as $type )
+				{
+					switch( $type ){
+						case 'W': $typeName = '網頁'; break;
+						case 'P': $typeName = '平面'; break;
+						case 'M': $typeName = '多媒體'; break;
+					}
+					$tasks = DB::table('task')->where('project',$projectSN)->where('type',$type)->where('report',$id)->get();
+					$print .= '<p class="pj-type">' . $typeName . '</p>
+					<table cellspacing="0" cellpadding="3">
+						<tr class="pj-dt-hd"><td width="4%" class="first" >項目</td><td width="16%">專案名稱</td><td width="12%">本週進度</td><td width="18%">目前狀況</td><td width="10%">完成日期</td><td width="9%">負責人</td><td width="10%">配合單位</td><td width="21%" class="last">連結網址</td></tr>';
+					$order = 1;
+					foreach( $tasks as $task )
+					{
+						$print .= ' <tr class="pj-dt-ct" id="task'. $task->sn .'"">
+					        <td class="order">' . $order . '<span class="delTask" data-sn="'. $task->sn .'">[x]</span></td>
+					        <td id="tdTaskName'. $task->sn .'">' . $task->name . '</td>
+					        <td>' . $task->progress . '</td>
+					        <td>' . $task->status . '</td>
+					        <td>' . $task->finishdate . '</td>
+					        <td>' . $task->designer . '</td>
+					        <td>' . $task->cowork . '</td>
+					        <td>' . $task->url . '</td>
+				        </tr>';
+				        $order++;
+					}
+					$print .= '</table>';
+				}
+
+			} /*  FOREACH PROJECT END */
+		}
+		return $print;
+	} /* public function ajaxReportTable end */
+
+
+
+}
+
+?>
