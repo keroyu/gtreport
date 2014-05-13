@@ -59,17 +59,14 @@ span.udl {
 }
 
 table {
-  td {
-    padding: 5px 8px;
-  }
-  span.delTask {
-    display: none;
-  }
-  td.order:hover .delTask {
+  td { padding: 5px 8px; }
+  span.manageTask { display: none; }
+  td.order:hover .manageTask {
     display: inline-block;
     color: #f00;
     cursor: pointer;
   }
+  tr.edit-area{  background: #ccc; }
 }
 
 .project {
@@ -152,6 +149,8 @@ table {
   tr.pj-dt-hd td {
     background: #FBAF22;
     padding: 5px 0;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 }
 
@@ -181,17 +180,17 @@ table {
 .btn {
   display: inline-block;
   &.primary {
-    background: #008CBA;
-    color: #fff;
-    border: 1px solid #007295;
+    background: #008CBA; color: #fff; border: 1px solid #007295;
     &:visited, &:link {
-      color: #fff;
-      text-decoration: none;
+      color: #fff; text-decoration: none;
     }
-    &:hover {
-      color: #fff;
-      background: #007295;
+    &:hover { color: #fff; background: #007295;
     }
+  }
+  &.danger{
+    background: #d9534f;
+    border-color: #d43f3a; color: #fff;
+    &:hover{ background: #d43f3a;  }
   }
   &.info {
     background: #eee;

@@ -42,7 +42,7 @@ $(function(){
 		var name = $(this).html(),
 			hasNames = $('#designer').val();
 		if( hasNames !== '' ){
-			$('#designer'). val( hasNames + '、' + name );
+			$('#designer').val( hasNames + '、' + name );
 		}else{
 			$('#designer').val(name);
 		}
@@ -89,8 +89,46 @@ $(function(){
 			$('.alert').delay(1500).fadeOut('slow');
 		}
 	});
+
+	/*  EDIT TASK */
+	$('body').on( "click", ".manageTask", function(){
+		var thisSN = $(this).data('sn'),
+			tdArray = [
+				'TaskName', 'TaskProgress', 'TaskStatus', 
+				'TaskDesigner', 'TaskCowork', 'TaskUrl'
+			],
+			editLine = '<td>auto</td>',
+			textArray = [];
+
+		/* 構建 編輯區域 HTML */
+		for( var i=0; i<6; i++ ){
+			textArray.push ( $('#td'+tdArray[i]+thisSN).html() );
+			editLine += '<td><input type="text" class="md" id="edit'+tdArray[i]+thisSN+'" val=""></td>';
+		}
+
+		/* 構建 按鈕 HTML */
+		var btnLine = '<tr class="text-right edit-area"><td colspan="7"><button class="btn xs primary" data-sn="'+thisSN+'">修改</button> <button class="btn xs danger" data-sn="'+thisSN+'">刪除</button> <button class="btn xs cancelTask" data-sn="'+thisSN+'">取消</button></td></tr>';
+
+		/* 顯示編輯區域和按鈕 */
+		$('#task'+thisSN)
+			.after('<tr class="pj-dt-ct edit-area" id="edit'+thisSN+'"></tr>');
+		$('#edit'+thisSN).append(editLine).after(btnLine);
+
+		/*  填寫入舊的資料 */
+		for( var i=0; i<6; i++ ){
+			$( '#edit'+tdArray[i]+thisSN ).val( textArray[i] );
+		}
+		$('#task'+thisSN).slideToggle();
+	});
+
+	/* CANCEL MANAGE TASK */
+	$('body').on( "click", ".cancelTask", function(){
+		var thisSN = $(this).data('sn');
+		$('.edit-area').remove();
+		$('#task'+thisSN).slideToggle();
+	});
 	
-	/* 刪除專案 */
+	/* DELETE A TASK */
 	$('body').on( "click", ".delTask", function(){
 		var sn = $(this).data('sn'),
 			name = $('#tdTaskName'+sn).html();
@@ -106,6 +144,7 @@ $(function(){
 			});
 		}
 	});
+
 });
 </script>
 @stop

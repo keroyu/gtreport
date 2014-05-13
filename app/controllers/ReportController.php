@@ -87,13 +87,13 @@ class ReportController extends BaseController {
 					foreach( $tasks as $task )
 					{
 						$print .= ' <tr class="pj-dt-ct" id="task'. $task->sn .'"">
-					        <td class="order">' . $order . '<span class="delTask" data-sn="'. $task->sn .'">[x]</span></td>
+					        <td class="order">' . $order . '<span class="manageTask" data-sn="'. $task->sn .'"><i class="fa fa-pencil-square-o"></i></span></td>
 					        <td id="tdTaskName'. $task->sn .'">' . $task->name . '</td>
-					        <td>' . $task->progress . '</td>
-					        <td>' . $task->status . '</td>
-					        <td>' . $task->designer . '</td>
-					        <td>' . $task->cowork . '</td>
-					        <td>' . $task->url . '</td>
+					        <td id="tdTaskProgress'. $task->sn .'">' . $task->progress . '</td>
+					        <td id="tdTaskStatus'. $task->sn .'">' . $task->status . '</td>
+					        <td id="tdTaskDesigner'. $task->sn .'">' . $task->designer . '</td>
+					        <td id="tdTaskCowork'. $task->sn .'">' . $task->cowork . '</td>
+					        <td id="tdTaskUrl'. $task->sn .'">' . $task->url . '</td>
 				        </tr>';
 				        $order++;
 					}

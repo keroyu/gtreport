@@ -61,13 +61,16 @@ span.udl {
 table td {
   padding: 5px 8px;
 }
-table span.delTask {
+table span.manageTask {
   display: none;
 }
-table td.order:hover .delTask {
+table td.order:hover .manageTask {
   display: inline-block;
   color: #f00;
   cursor: pointer;
+}
+table tr.edit-area {
+  background: #ccc;
 }
 
 .project {
@@ -151,6 +154,8 @@ table th {
 table tr.pj-dt-hd td {
   background: #FBAF22;
   padding: 5px 0;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .report-list {
@@ -194,6 +199,14 @@ table tr.pj-dt-hd td {
 .btn.primary:hover {
   color: #fff;
   background: #007295;
+}
+.btn.danger {
+  background: #d9534f;
+  border-color: #d43f3a;
+  color: #fff;
+}
+.btn.danger:hover {
+  background: #d43f3a;
 }
 .btn.info {
   background: #eee;
