@@ -10,7 +10,6 @@ class TaskController extends BaseController {
 		$type = Input::get('type');
 		$progress = Input::get('progress');
 		$status = Input::get('status');
-		$finishdate = Input::get('finishdate');
 		$designer = Input::get('designer');
 		$cowork = Input::get('cowork');
 		$url = Input::get('url');
@@ -25,7 +24,6 @@ class TaskController extends BaseController {
 		);
 
 		if( $status !='' ) $data['status'] = $status;
-		if( $finishdate !='' ) $data['finishdate'] = $finishdate;
 		if( $cowork !='' ) $data['cowork'] = $cowork;
 		if( $url !='' ) $data['url'] = $url;
 		DB::table('task')->insert( $data );

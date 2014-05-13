@@ -255,3 +255,17 @@ table {
 select.md {
   padding: 2px 10px;
 }
+
+.name-box{
+  display: none;
+  background: #eee; border: 2px solid #555; width: 400px;
+  position: absolute; line-height: 20px;
+  ul{
+    padding: 0px; margin: 0px;
+    li{ 
+      display: inline-block; width: 50px; text-align: center; 
+      line-height: 23px; cursor: pointer;
+      &:hover{ background: #555; color: #fff; }
+    }
+  }
+}

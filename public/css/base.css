@@ -254,3 +254,27 @@ table tr.pj-dt-hd td {
 select.md {
   padding: 2px 10px;
 }
+
+.name-box {
+  display: none;
+  background: #eee;
+  border: 2px solid #555;
+  width: 400px;
+  position: absolute;
+  line-height: 20px;
+}
+.name-box ul {
+  padding: 0px;
+  margin: 0px;
+}
+.name-box ul li {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+  line-height: 23px;
+  cursor: pointer;
+}
+.name-box ul li:hover {
+  background: #555;
+  color: #fff;
+}
