@@ -15,13 +15,13 @@
 	</div>
 	<div class="data-box" id="addNewProject">
 	<h3>+ 新增專題 (遊戲名稱)</h3>
-		開始名稱： <input type="text" id="pjName" name="pjName" class="lg" > <button class="btn primary sm" id="confirmNewPj">確定</button>
+		名稱： <input type="text" id="pjName" name="pjName" class="lg" > <button class="btn primary sm" id="confirmNewPj">確定</button>
 		<div id="response" class="margin-tb"></div>
 	</div>
 <script>
 	$(function(){
-
-	$('#reportList').load('ajax/reportList');
+	$('#reportList').html('<div class="text-center"><img src="/img/loader.gif" ></div>');
+	$('#reportList').delay(1500).load('ajax/reportList');
 	});
 
 	/* 新增週報表 */
@@ -39,7 +39,7 @@
 					success: function(response){
 						var msg = '成功新增 '+response+' 的週報表!!';
 						alert(msg);
-						$('#reportList').load('ajax/reportList');
+						$('#reportList').html('<div class="text-center"><img src="/img/loader.gif" ></div>').load('ajax/reportList');
 					}
 				});
 			}

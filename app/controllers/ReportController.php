@@ -13,7 +13,7 @@ class ReportController extends BaseController {
 		$reportPrint = '';
 		foreach( $reports as $report ){
 			$reportPrint .= '<li><a href="report/' 
-				. $report->sn . '">週報表'. $report->start . '~' . $report->end . '</a></li>';
+				. $report->sn . '/edit">週報表'. $report->start . '~' . $report->end . '</a></li>';
 		}
 		return $reportPrint;
 	}
@@ -28,9 +28,10 @@ class ReportController extends BaseController {
 		echo $start.' ~ '.$end;
 	}
 
-	public function showReport($id) 
+	public function showReport($id,$mode) 
 	{
 		$data['sn'] = $id;
+		$data['mode'] = $mode;
 
 		$res = DB::table('report')->where('sn', $id)->first();
 		$print = $res->start .'~'. $res->end;
@@ -51,15 +52,14 @@ class ReportController extends BaseController {
 	{
 		/* 取得該 report 涵蓋的所有 project */
 		$res = DB::table('task')->where('report', $id)->get();
-		foreach( $res as $tasks )
-		{
-			$projectArray[] = $tasks->project;
-		}
-		$projectArray = array_unique($projectArray);
-		$print = '';
-		/* GET TASKS OF THIS PROJECT */
-		if( $projectArray )
-		{
+		if( count($res) >0 ){
+			foreach( $res as $tasks )
+			{
+				$projectArray[] = $tasks->project;
+			}
+			$projectArray = array_unique($projectArray);
+			$print = '';
+			/* GET TASKS OF THIS PROJECT */
 			foreach( $projectArray as $projectSN )
 			{
 				/* GET PROJECT NAME */
@@ -102,12 +102,11 @@ class ReportController extends BaseController {
 				}
 
 			} /*  FOREACH PROJECT END */
-		}
-		return $print;
+			return $print;
+		}else{
+			return '目前沒有資料，來填寫第一筆吧!';
+		}		
 	} /* public function ajaxReportTable end */
-
-
-
 }
 
 ?>

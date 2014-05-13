@@ -1,6 +1,6 @@
 <?php 
 
-class taskController extends BaseController {
+class TaskController extends BaseController {
 
 	public function ajaxTaskAdd()
 	{

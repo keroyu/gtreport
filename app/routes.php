@@ -17,13 +17,13 @@
 // });
 
 Route::get('/', 'ReportController@index');
-Route::get('report/{id}', 'ReportController@showReport');
+Route::get('report/{id}/{mode}', 'ReportController@showReport');
 
 
 Route::post('ajax/reportAdd', 'ReportController@ajaxReportAdd');
 Route::post('ajax/projectAdd', 'ProjectController@ajaxProjectAdd');
-Route::post('ajax/taskAdd', 'taskController@ajaxTaskAdd');
-Route::post('ajax/taskDel', 'taskController@ajaxTaskDel');
+Route::post('ajax/taskAdd', 'TaskController@ajaxTaskAdd');
+Route::post('ajax/taskDel', 'TaskController@ajaxTaskDel');
 
 Route::get('ajax/reportList', 'ReportController@ajaxReportList');
 Route::get('ajax/reportTable/{id}', 'ReportController@ajaxReportTable');
