@@ -5,7 +5,7 @@
 
 @if ( $mode == 'edit' )
 <div class="input-box" id="inputPanel">
-	<span><span class="option">專題名稱：</span><select name="pjSN" id="pjSN" class="md"><?php echo $selectPj; ?></select>* <a href="/">新增專題</a></span>
+	<span><span class="option">專題名稱：</span><select name="pjSN" id="pjSN" class="md"><?php echo $selectPj; ?></select>*<a href="/">新增專題</a></span>
 	<span><span class="option">專案名稱：</span><input type="text" class="lg" name="taskName" id="taskName" >*</span>
 	<span><span class="option">專案類型：</span><select name="type" id="type"><option value="W">網頁</option><option value="P">平面</option><option value="M">多媒體 </option></select> *</span>
 	<span><span class="option">本週進度：</span><select name="progress" id="progress" class="md"><option value="" selected>-</option><option value="已完成">已完成</option><option value="進行中">進行中</option><option value="其他">其他</option></select>*</span>
