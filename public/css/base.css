@@ -32,8 +32,23 @@ body {
   margin: 10px 0;
 }
 
+.margin-rl {
+  margin: 0 10px;
+}
+
 .alert {
   color: #f00;
+}
+
+.success {
+  color: #4cae4c;
+}
+
+.ajax-loader {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  min-height: 80px;
+  width: 960px;
 }
 
 .header {

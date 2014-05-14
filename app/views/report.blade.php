@@ -27,7 +27,17 @@
 <script>
 $(function(){
 
-	$("#tasksTable").html('<div class="text-center"><img src="/img/loader.gif" ></div>').delay(2000).load( "/ajax/reportTable/<?php echo $sn; ?>" );
+	var refreshTable = function(){
+		var wid = $("#tasksTable").width(), 
+			hgt = $("#tasksTable").height(),
+			paddingTop =hgt*0.4, hgt = hgt * 0.6;
+		$("#tasksTable").prepend('<div class="text-center ajax-loader" style="height:'+hgt+'px; padding-top:'+paddingTop+'px; "><img src="/img/loader.gif" ></div>');
+		setTimeout( function(){ 
+			$("#tasksTable").load( "/ajax/reportTable/<?php echo $sn; ?>" ) 
+		}, 800 );
+	}
+	refreshTable();
+	
 
 	/* NAME BOX FUNCTION */
 	/* 控制該 NAME BOX 顯示或隱藏 */
@@ -50,7 +60,8 @@ $(function(){
 	});
 
 
-	$('#addNewTask').click(function(){
+	/* ADD NEW TASK */
+ 	$('#addNewTask').click(function(){
 		var reportSN = $('#reportSN').val();
 			pjSN = $('#pjSN').val(),
 			taskName = $('#taskName').val(),
@@ -81,7 +92,7 @@ $(function(){
 					$('#addNewTask').after('<div class="text-center" id="res">'+response+'</div>');
 					$('#res').delay(1500).fadeOut('slow');
 					$('#taskName, #status, #cowork, #url').html('');
-					$("#tasksTable").load( "/ajax/reportTable/<?php echo $sn; ?>"); 
+					refreshTable();
 				}
 			});
 		}else{
@@ -90,56 +101,109 @@ $(function(){
 		}
 	});
 
+
+/* INPUT NAME ARRAY */
+
+var tdArray = [
+	'TaskName', 'TaskProgress', 'TaskStatus', 
+	'TaskDesigner', 'TaskCowork', 'TaskUrl'
+]
+
 	/*  EDIT TASK */
+
+	/* -- EXPAND EDIT AREA */
 	$('body').on( "click", ".manageTask", function(){
-		var thisSN = $(this).data('sn'),
-			tdArray = [
-				'TaskName', 'TaskProgress', 'TaskStatus', 
-				'TaskDesigner', 'TaskCowork', 'TaskUrl'
-			],
+		var taskSN = $(this).data('task'),
+			pjSN = $(this).data('pj'),
+			type= $(this).data('type'),
 			editLine = '<td>auto</td>',
 			textArray = [];
 
-		/* 構建 編輯區域 HTML */
+		/* ----構建 編輯區域 HTML */
 		for( var i=0; i<6; i++ ){
-			textArray.push ( $('#td'+tdArray[i]+thisSN).html() );
-			editLine += '<td><input type="text" class="md" id="edit'+tdArray[i]+thisSN+'" val=""></td>';
+			textArray.push ( $('#td'+tdArray[i]+taskSN).html() );
+			editLine += '<td><input type="text" class="md" id="edit'+tdArray[i]+taskSN+'" val=""></td>';
 		}
 
-		/* 構建 按鈕 HTML */
-		var btnLine = '<tr class="text-right edit-area"><td colspan="7"><button class="btn xs primary" data-sn="'+thisSN+'">修改</button> <button class="btn xs danger" data-sn="'+thisSN+'">刪除</button> <button class="btn xs cancelTask" data-sn="'+thisSN+'">取消</button></td></tr>';
-
-		/* 顯示編輯區域和按鈕 */
-		$('#task'+thisSN)
-			.after('<tr class="pj-dt-ct edit-area" id="edit'+thisSN+'"></tr>');
-		$('#edit'+thisSN).append(editLine).after(btnLine);
-
-		/*  填寫入舊的資料 */
-		for( var i=0; i<6; i++ ){
-			$( '#edit'+tdArray[i]+thisSN ).val( textArray[i] );
+		/* ----構建 按鈕 HTML */
+		/* ------TYPE SELECT LOOP */
+		var typeKeyArray = ['W', 'P', 'M'],
+			typeValArray = [ '網頁', '平面', '多媒體' ],
+			typeSelect = '<select name="editTaskType'+taskSN+'" id="editTaskType'+taskSN+'">',
+			str = '';
+		for( var i=0; i<3; i++ ){
+			typeSelect += '<option value="'+typeKeyArray[i]+'"';
+			if( type == typeKeyArray[i] ) typeSelect += ' selected';
+			typeSelect += '>'+typeValArray[i]+'</option>';
 		}
-		$('#task'+thisSN).slideToggle();
+		typeSelect += '</select>';
+		/* ---- CONSTRUCT INPUT BUTTON LINE */
+		var	btnLine = '<tr class="text-right edit-area'+taskSN+'"><td colspan="7"><span class="margin-rl" id="taskResponse'+taskSN+'"></span><span>專案類型：'+ typeSelect +'</span> <button class="btn xs primary editTaskBtn" data-task="'+taskSN+'" data-pj="'+pjSN+'" data-type="'+type+'">修改</button> <button class="btn xs danger delTaskBtn" data-task="'+taskSN+'">刪除</button> <button class="btn xs cancelTaskBtn" data-task="'+taskSN+'">取消</button></td></tr>';
+
+		/* ----顯示編輯區域和按鈕 */
+		$('#task'+taskSN).after('<tr class="pj-dt-ct edit-area'+taskSN+'" id="edit'+taskSN+'"></tr>');
+		$('#edit'+taskSN).append(editLine).after(btnLine);
+
+		/* ----填寫入舊的資料 */
+		for( var i=0; i<6; i++ ){
+			$( '#edit'+tdArray[i]+taskSN ).val( textArray[i] );
+		}
+		setTimeout( function(){ $('#task'+taskSN).hide(); }, 50 );
+	});
+	/* -- SEND INPUT DATA */
+	$('body').on( "click", ".editTaskBtn", function(){
+		var reportSN = $('#reportSN').val(),
+			taskSN = $(this).data('task'),
+			pjSN = $(this).data('pj'),
+			type = $('#editTaskType'+taskSN).val(),
+			sendArray = [];
+		for( var i=0; i<6; i++ ){
+			sendArray[ tdArray[i] ] = $('#edit'+tdArray[i]+taskSN ).val();
+		}
+		var dataStr = {
+			'reportSN': reportSN,
+			'taskSN': taskSN,
+			'pjSN': pjSN,
+			'taskName': sendArray['TaskName'],
+			'type': type,
+			'progress': sendArray['TaskProgress'],
+			'status': sendArray['TaskStatus'],
+			'designer': sendArray['TaskDesigner'],
+			'cowork': sendArray['TaskCowork'],
+			'url': sendArray['TaskUrl']
+		};
+		$.ajax({
+			url: "/ajax/taskEdit",
+			data: dataStr,
+			type: "POST",
+			success: function(response){
+				 $('#taskResponse'+taskSN).html(response);
+				 $('#res').delay(1500).fadeOut('fast');
+				 setTimeout( refreshTable(), 3000 );
+			}
+		});
 	});
 
-	/* CANCEL MANAGE TASK */
-	$('body').on( "click", ".cancelTask", function(){
-		var thisSN = $(this).data('sn');
-		$('.edit-area').remove();
-		$('#task'+thisSN).slideToggle();
+	/* -- CANCEL MANAGE TASK */
+	$('body').on( "click", ".cancelTaskBtn", function(){
+		var taskSN = $(this).data('task');
+		$('.edit-area'+taskSN).remove();
+		$('#task'+taskSN).show();
 	});
 	
 	/* DELETE A TASK */
-	$('body').on( "click", ".delTask", function(){
-		var sn = $(this).data('sn'),
-			name = $('#tdTaskName'+sn).html();
+	$('body').on( "click", ".delTaskBtn", function(){
+		var sn = $(this).data('task'),
+			name = $('#editTaskName'+sn).val();
 		if( confirm('確定刪除專案 "'+name+'" 嗎?') ){
-			
 			$.ajax({
 				url: "/ajax/taskDel",
 				data: { 'sn': sn },
 				type: "POST",
-				success: function(){
-					$('#task'+sn).fadeOut('fast');
+				success: function(response){
+					$('#taskResponse'+sn).html(response);
+					$('#res').delay(1500).fadeOut('fast');
+					setTimeout( refreshTable(), 3000 );
 				}
 			});
 		}

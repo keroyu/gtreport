@@ -13,27 +13,21 @@ body {
   box-shadow: 2px 2px 5px #555;
 }
 
-.toggle-target {
-  display: none;
-}
+.toggle-target { display: none; }
 
-.text-center {
-  text-align: center;
-  > * {
-    margin: 0 auto;
-  }
-}
+.text-center { text-align: center; > * { margin: 0 auto; } }
 
-.text-right {
-  text-align: right;
-}
+.text-right { text-align: right; }
 
-.margin-tb {
-  margin: 10px 0;
-}
+.margin-tb { margin: 10px 0; }
+.margin-rl { margin: 0 10px; }
 
-.alert {
-  color: #f00;
+.alert { color: #f00; }
+.success{ color: #4cae4c; }
+
+.ajax-loader{
+  position: absolute; background: rgba(255,255,255,.5);
+  min-height: 80px;width: 960px;
 }
 
 .header {
@@ -76,103 +70,61 @@ table {
   border-left: 2px solid #000;
   margin-bottom: 15px;
   p {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0px auto;
-    padding: 0px auto;
-    line-height: 30px;
-    display: block;
+    font-size: 16px; font-weight: bold;
+    margin: 0px auto; padding: 0px auto;
+    line-height: 30px; display: block;
   }
 }
 
 .project-title {
   line-height: 30px;
-  background: #000;
-  color: #fff;
+  background: #000; color: #fff;
 }
 
 button {
-  cursor: pointer;
-  margin: 0 2px;
-  border: 1px solid #555;
-  i {
-    margin-right: 5px;
-  }
+  cursor: pointer; margin: 0 2px; border: 1px solid #555;
+  i {margin-right: 5px; }
 }
 
 input[type=text] {
-  width: 80px;
-  padding: 2px;
-  border: 1px solid #ccc;
-  &.xs {
-    width: 30px;
-  }
-  &.sm {
-    width: 60px;
-  }
-  &.md {
-    width: 120px;
-  }
-  &.lg {
-    width: 200px;
-  }
+  width: 80px; padding: 2px; border: 1px solid #ccc;
+  &.xs {width: 30px; }
+  &.sm {width: 60px; }
+  &.md {width: 120px; }
+  &.lg {width: 200px; }
 }
 
 .pj-type {
-  line-height: 25px;
-  background: #D95201;
-  color: #fff;
-  button {
-    float: right;
-  }
+  line-height: 25px; background: #D95201; color: #fff;
+  button {float: right; }
 }
 
 table {
   width: 960px;
-  border-bottom: 2px solid #555;
-  border-top: 1px solid #000;
-  border-right: none;
-  border-left: none;
+  border-bottom: 2px solid #555; border-top: 1px solid #000;
+  border-right: none; border-left: none;
   td {
     border: 1px solid #000;
-    &:first-child {
-      border-left: none;
-    }
-    &:last-child {
-      border-right: none;
-    }
+    &:first-child {border-left: none; }
+    &:last-child {border-right: none; }
   }
-  th {
-    font-weight: bold;
-    font-size: 16px;
-  }
+  th {font-weight: bold; font-size: 16px; }
   tr.pj-dt-hd td {
-    background: #FBAF22;
-    padding: 5px 0;
-    word-wrap: break-word;
-    word-break: break-all;
+    background: #FBAF22; padding: 5px 0;
+    word-wrap: break-word; word-break: break-all;
   }
 }
 
 .report-list {
-  width: 900px;
-  text-align: left;
-  margin: 10px 0;
+  width: 900px; text-align: left; margin: 10px 0;
   li {
-    display: inline-block;
-    width: 290px;
-    text-align: center;
-    background: #878787;
-    margin: 5px 2px;
-    font-size: 15px;
+    display: inline-block; width: 290px;
+    text-align: center; background: #878787;
+    margin: 5px 2px; font-size: 15px;
     &:hover{ background: #555; color: #fff; }
     a {
       width: 215px; line-height: 40px;
-      &:visited, &:link {
-        color: #eee;
-        text-decoration: none;
-      }
-
+      &:visited, &:link {color: #eee; text-decoration: none; }
     }
   }
 }
@@ -181,11 +133,8 @@ table {
   display: inline-block;
   &.primary {
     background: #008CBA; color: #fff; border: 1px solid #007295;
-    &:visited, &:link {
-      color: #fff; text-decoration: none;
-    }
-    &:hover { color: #fff; background: #007295;
-    }
+    &:visited, &:link {color: #fff; text-decoration: none; }
+    &:hover { color: #fff; background: #007295; } 
   }
   &.danger{
     background: #d9534f;
@@ -218,36 +167,24 @@ table {
 }
 
 .input-box {
-  text-align: left;
-  line-height: 35px;
-  width: 920px;
-  margin: 0 auto;
-  margin-bottom: 10px;
+  text-align: left; line-height: 35px; width: 920px;
+  margin: 0 auto; margin-bottom: 10px;
   span {
     display: inline-block;
-    &.option {
-      width: 80px;
-    }
+    &.option { width: 80px; }
   }
   > span {
     width: 300px;
     a {
       &:link, &:visited {
-        margin: 0 0 0 10px;
-        color: #008CBA;
-        text-decoration: none;
+        margin: 0 0 0 10px; color: #008CBA; text-decoration: none;
       }
-      &:hover {
-        color: #007295;
-      }
+      &:hover {color: #007295; }
     }
   }
   .btn {
-    margin: 10px 0 0 0;
-    line-height: 28px;
-    width: 200px;
-    text-align: center;
-    padding: 0 0px;
+    margin: 10px 0 0 0; line-height: 28px;
+    width: 200px; text-align: center; padding: 0 0px;
   }
 }
 

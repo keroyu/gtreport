@@ -67,7 +67,7 @@ class ReportController extends BaseController {
 				$print .= '<p class="project-title">' . $res . '</p>';
 
 				/* GET ALL TYPE */
-				$res = DB::table('task')->select('type')->distinct()->where('report',$id)->where('project', $projectSN)->get();
+				$res = DB::table('task')->select('type')->distinct()->orderBy('type', 'desc')->where('report',$id)->where('project', $projectSN)->get();
 				unset($typeArray);
 				foreach( $res as $type ){  $typeArray[] = $type->type; };
 
@@ -87,7 +87,7 @@ class ReportController extends BaseController {
 					foreach( $tasks as $task )
 					{
 						$print .= ' <tr class="pj-dt-ct" id="task'. $task->sn .'"">
-					        <td class="order">' . $order . '<span class="manageTask" data-sn="'. $task->sn .'"><i class="fa fa-pencil-square-o"></i></span></td>
+					        <td class="order">' . $order . '<span class="manageTask" data-task="'. $task->sn .'" data-pj="'.$projectSN.'" data-type="'.$task->type.'"><i class="fa fa-pencil-square-o"></i></span></td>
 					        <td id="tdTaskName'. $task->sn .'">' . $task->name . '</td>
 					        <td id="tdTaskProgress'. $task->sn .'">' . $task->progress . '</td>
 					        <td id="tdTaskStatus'. $task->sn .'">' . $task->status . '</td>
