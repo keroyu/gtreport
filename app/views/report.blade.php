@@ -15,6 +15,13 @@
 	<span><span class="option">連結網址：</span><input type="text" class="lg" name="url" id="url"></span>
 	<div class="text-center"><button class="btn primary sm" id="addNewTask">確定送出</button></div>
 </div>
+<input type="hidden" >
+<script>
+$(function(){
+	// var coworkers = <?php echo $coworkers; ?>;
+	$( "#cowork" ).autocomplete({ source: coworkers });
+});
+</script>
 @endif
 	<div class="project" id="tasksTable">
 	</div>
