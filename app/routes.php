@@ -12,11 +12,7 @@
 */
 
 Route::get('/', 'ReportController@index');
-<<<<<<< HEAD
 Route::get('report/{id}/{mode}', 'ReportController@showReportPage');
-=======
-Route::get('report/{id}/{mode}', 'ReportController@showReport');
->>>>>>> dd319d0e672924cde0099f9eba46c60b7df92971
 Route::post('ajax/reportAdd', 'ReportController@ajaxReportAdd');
 Route::post('ajax/projectAdd', 'ProjectController@ajaxProjectAdd');
 Route::post('ajax/taskQuery/{action}', 'TaskController@ajaxTaskQuery');
