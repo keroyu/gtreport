@@ -11,19 +11,11 @@
 |
 */
 
-// Route::get('/', function()
-// {
-// 	return View::make('report_list');
-// });
-
 Route::get('/', 'ReportController@index');
-Route::get('report/{id}/{mode}', 'ReportController@showReport');
-
-
+Route::get('report/{id}/{mode}', 'ReportController@showReportPage');
 Route::post('ajax/reportAdd', 'ReportController@ajaxReportAdd');
 Route::post('ajax/projectAdd', 'ProjectController@ajaxProjectAdd');
 Route::post('ajax/taskQuery/{action}', 'TaskController@ajaxTaskQuery');
-
 Route::get('ajax/reportList', 'ReportController@ajaxReportList');
 Route::get('ajax/reportTable/{id}', 'ReportController@ajaxReportTable');
 

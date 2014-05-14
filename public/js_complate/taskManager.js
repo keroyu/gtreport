@@ -1,7 +1,16 @@
 $(function(){
+
+/* COWORKERS AUTOCOMPLETE */
+var names = $('#cowork').data('names'),
+	coworkers = [];
+$.each( names, function( key, val){
+	coworkers.push( val );
+} );
+$( "#cowork" ).autocomplete({ source: coworkers });
+
+
+/* LOAD TASK TABLE */
 var reportSN = $('#reportSN').val();
-
-
 var refreshTable = function(){
 	var wid = $("#tasksTable").width(), 
 		hgt = $("#tasksTable").height(),
@@ -12,7 +21,6 @@ var refreshTable = function(){
 	}, 800 );
 }
 refreshTable();
-
 
 /* NAME BOX FUNCTION */
 /* 控制該 NAME BOX 顯示或隱藏 */
@@ -60,7 +68,7 @@ $('#nameBox ul li').click(function(){
 			'url': url
 		};
 		$.ajax({
-			url: "/ajax/taskQuery/add",
+			url: "/ajax/taskAdd",
 			data: dataStr,
 			type: "POST",
 			success: function(response){
@@ -148,7 +156,7 @@ $('body').on( "click", ".editTaskBtn", function(){
 		'url': sendArray['TaskUrl']
 	};
 	$.ajax({
-		url: "/ajax/taskQuery/edit",
+		url: "/ajax/taskEdit",
 		data: dataStr,
 		type: "POST",
 		success: function(response){
@@ -172,8 +180,8 @@ $('body').on( "click", ".delTaskBtn", function(){
 		name = $('#editTaskName'+sn).val();
 	if( confirm('確定刪除專案 "'+name+'" 嗎?') ){
 		$.ajax({
-			url: "/ajax/taskQuery/del",
-			data: { 'taskSN': sn },
+			url: "/ajax/taskDel",
+			data: { 'sn': sn },
 			type: "POST",
 			success: function(response){
 				$('#taskResponse'+sn).html(response);

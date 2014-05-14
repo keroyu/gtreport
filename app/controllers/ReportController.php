@@ -1,7 +1,7 @@
 <?php 
 
 class ReportController extends BaseController {
-	
+
 	public function index() 
 	{
 		return View::make('report_list');
@@ -28,7 +28,7 @@ class ReportController extends BaseController {
 		echo $start.' ~ '.$end;
 	}
 
-	public function showReport($id,$mode) 
+	public function showReportPage($id,$mode) 
 	{
 		$data['sn'] = $id;
 		$data['mode'] = $mode;
@@ -44,6 +44,9 @@ class ReportController extends BaseController {
 			$print .= '<option value="' . $project->sn.'">' . $project->name . '</option>';
 		}
 		$data['selectPj'] = $print;
+
+		$coworkers = array_unique( DB::table('task')->lists('cowork'));
+		$data['coworkers'] = json_encode($coworkers);
 
 		return View::make('report', $data);
 	}
