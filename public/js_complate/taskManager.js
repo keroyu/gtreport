@@ -60,7 +60,7 @@ $('#nameBox ul li').click(function(){
 			'url': url
 		};
 		$.ajax({
-			url: "/ajax/taskAdd",
+			url: "/ajax/taskQuery/add",
 			data: dataStr,
 			type: "POST",
 			success: function(response){
@@ -148,7 +148,7 @@ $('body').on( "click", ".editTaskBtn", function(){
 		'url': sendArray['TaskUrl']
 	};
 	$.ajax({
-		url: "/ajax/taskEdit",
+		url: "/ajax/taskQuery/edit",
 		data: dataStr,
 		type: "POST",
 		success: function(response){
@@ -172,8 +172,8 @@ $('body').on( "click", ".delTaskBtn", function(){
 		name = $('#editTaskName'+sn).val();
 	if( confirm('確定刪除專案 "'+name+'" 嗎?') ){
 		$.ajax({
-			url: "/ajax/taskDel",
-			data: { 'sn': sn },
+			url: "/ajax/taskQuery/del",
+			data: { 'taskSN': sn },
 			type: "POST",
 			success: function(response){
 				$('#taskResponse'+sn).html(response);
