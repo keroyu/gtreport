@@ -4,7 +4,9 @@ class ReportController extends BaseController {
 
 	public function index() 
 	{
-		return View::make('report_list');
+		$projects = DB::table('project')->lists('name');
+		$data['projects'] = json_encode($projects);
+		return View::make('report_list', $data);
 	}
 
 	public function ajaxReportList() 
