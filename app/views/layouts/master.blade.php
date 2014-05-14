@@ -10,9 +10,7 @@
 <script src="/js/jquery-1.10.2.min.js"></script>
 <script src="/js/jquery-ui-1.10.1.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="/js/all.js"></script>
-
-
+<script src="/js/all.min.js"></script>
 
 </head>
 <body>

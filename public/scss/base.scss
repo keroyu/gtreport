@@ -52,17 +52,6 @@ span.udl {
   float: right;
 }
 
-table {
-  td { padding: 5px 8px; }
-  span.manageTask { display: none; }
-  td.order:hover .manageTask {
-    display: inline-block;
-    color: #f00;
-    cursor: pointer;
-  }
-  tr.edit-area{  background: #ccc; }
-}
-
 .project {
   width: 960px;
   margin: 0 auto;
@@ -104,16 +93,25 @@ table {
   border-bottom: 2px solid #555; border-top: 1px solid #000;
   border-right: none; border-left: none;
   td {
-    border: 1px solid #000;
+    border: 1px solid #000; padding: 5px 8px;
     &:first-child {border-left: none; }
     &:last-child {border-right: none; }
   }
   th {font-weight: bold; font-size: 16px; }
-  tr.pj-dt-hd td {
-    background: #FBAF22; padding: 5px 0;
-    word-wrap: break-word; word-break: break-all;
+  tr{
+    &.pj-dt-hd td {
+      background: #FBAF22; padding: 5px 0;
+      word-wrap: break-word; word-break: break-all;
+    }
+    &.pj-dt-ct{
+      &:hover .manageTask {
+        display: inline-block; cursor: pointer; color: #f00;
+      }
+    }
   }
+  span.manageTask { display: none;  margin: 0 0 0 2px;}
 }
+
 
 .report-list {
   width: 900px; text-align: left; margin: 10px 0;
@@ -137,48 +135,33 @@ table {
     &:hover { color: #fff; background: #007295; } 
   }
   &.danger{
-    background: #d9534f;
-    border-color: #d43f3a; color: #fff;
+    background: #d9534f; border-color: #d43f3a; color: #fff;
     &:hover{ background: #d43f3a;  }
   }
-  &.info {
-    background: #eee;
-    color: 000;
-  }
-  &.sm {
-    padding: 5px 10px;
-  }
-  &.md {
-    padding: 8px 15px;
-  }
-  &.lg {
-    padding: 8px 30px;
-  }
+  &.info { background: #eee; color: 000; }
+  &.xs{ padding: 2px 3px; }
+  &.sm {padding: 5px 10px; }
+  &.md {padding: 8px 15px; }
+  &.lg {padding: 8px 30px; }
 }
 
 .data-box {
-  background: #eee;
-  margin: 10px 40px;
-  padding: 20px;
-  display: none;
-  input[type=text] {
-    padding: 5px 8px;
-  }
+  display: none;background: #eee;
+  margin: 10px 40px; padding: 20px;
+  input[type=text] {padding: 5px 8px; }
 }
 
 .input-box {
   text-align: left; line-height: 35px; width: 920px;
   margin: 0 auto; margin-bottom: 10px;
   span {
-    display: inline-block;
+    display: inline-block; 
     &.option { width: 80px; }
   }
   > span {
     width: 300px;
     a {
-      &:link, &:visited {
-        margin: 0 0 0 10px; color: #008CBA; text-decoration: none;
-      }
+      &:link, &:visited {margin: 0 0 0 10px; color: #008CBA; text-decoration: none; }
       &:hover {color: #007295; }
     }
   }
@@ -188,9 +171,7 @@ table {
   }
 }
 
-select.md {
-  padding: 2px 3px;
-}
+select.md {padding: 2px 3px; }
 
 .name-box{
   display: none;

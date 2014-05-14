@@ -81,13 +81,13 @@ class ReportController extends BaseController {
 					}
 					$tasks = DB::table('task')->where('project',$projectSN)->where('type',$type)->where('report',$id)->get();
 					$print .= '<p class="pj-type">' . $typeName . '</p>
-					<table cellspacing="0" cellpadding="3">
-						<tr class="pj-dt-hd"><td width="4%" class="first" >項目</td><td width="16%">專案名稱</td><td width="12%">本週進度</td><td width="28%">目前狀況</td><td width="9%">負責人</td><td width="10%">配合單位</td><td width="21%" class="last">連結網址</td></tr>';
+							<table cellspacing="0" cellpadding="3">
+							<tr class="pj-dt-hd"><td width="4%" class="first" >項目</td><td width="16%">專案名稱</td><td width="12%">本週進度</td><td width="28%">目前狀況</td><td width="9%">負責人</td><td width="10%">配合單位</td><td width="21%" class="last">連結網址</td></tr>';
 					$order = 1;
 					foreach( $tasks as $task )
 					{
-						$print .= ' <tr class="pj-dt-ct" id="task'. $task->sn .'"">
-					        <td class="order">' . $order . '<span class="manageTask" data-task="'. $task->sn .'" data-pj="'.$projectSN.'" data-type="'.$task->type.'"><i class="fa fa-pencil-square-o"></i></span></td>
+						$print .= '<tr class="pj-dt-ct" id="task'. $task->sn .'"">
+					        <td>' . $order . '<span class="manageTask" data-task="'. $task->sn .'" data-pj="'.$projectSN.'" data-type="'.$task->type.'"><i class="fa fa-pencil-square-o"></i></span></td>
 					        <td id="tdTaskName'. $task->sn .'">' . $task->name . '</td>
 					        <td id="tdTaskProgress'. $task->sn .'">' . $task->progress . '</td>
 					        <td id="tdTaskStatus'. $task->sn .'">' . $task->status . '</td>

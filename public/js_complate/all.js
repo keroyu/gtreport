@@ -6,7 +6,6 @@ $(document).ready(function(){
 		$(target).slideToggle('fast');
 	});
 
-
 	$('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 
 	
