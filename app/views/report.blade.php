@@ -15,13 +15,23 @@
 	<span><span class="option">連結網址：</span><input type="text" class="lg" name="url" id="url"></span>
 	<div class="text-center"><button class="btn primary sm" id="addNewTask">確定送出</button></div>
 </div>
+<script>
+	/* COWORKERS AUTOCOMPLETE */
+	var names = $('#cowork').data('names'),
+		coworkers = [];
+	$.each( names, function( key, val){
+		coworkers.push( val );
+	} );
+	$( "#cowork" ).autocomplete({ source: coworkers });
+</script>
 @endif
 	<div class="project" id="tasksTable">
 	</div>
 	<input type="hidden" id="reportSN" value="<?php echo $sn; ?>" >
+	<script src="/js/taskManager.min.js"></script>
 
 @if ( $mode == 'edit' )
 <div class="text-center margin-tb"><a class="btn info lg"  href="/report/<?php echo $sn ?>/print" target="_blank">查看列印版</a></div>
 @endif
-<script src="/js/taskManager.min.js"></script>
+
 @stop

@@ -33,10 +33,12 @@ class ReportController extends BaseController {
 		$data['sn'] = $id;
 		$data['mode'] = $mode;
 
+		/* GET REPORT PERIOD */
 		$res = DB::table('report')->where('sn', $id)->first();
 		$print = $res->start .'~'. $res->end;
 		$data['period'] = $print;
 
+		/* LIST AVAILABLE PROJECTS */
 		$projects = DB::table('project')->get();
 		$print = '<option value="">-</option>';
 		foreach( $projects as $project)
@@ -45,6 +47,7 @@ class ReportController extends BaseController {
 		}
 		$data['selectPj'] = $print;
 
+		/* LIST AVAILABLE COWORKERS */
 		$coworkers = array_unique( DB::table('task')->lists('cowork'));
 		$data['coworkers'] = json_encode($coworkers);
 

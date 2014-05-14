@@ -11,11 +11,10 @@ class TaskController extends BaseController {
 			'name' => $input['taskName'],
 			'type' => $input['type'],
 			'progress' => $input['progress'],
-			'designer' => $input['designer']
+			'designer' => $input['designer'],
+			'status' => $input['status'],
+			'cowork' => $input['cowork']
 		);
-
-		if( $input['status'] !='' ) $data['status'] = $input['status'];
-		if( $input['cowork'] !='' ) $data['cowork'] = $input['cowork'];
 		if( $input['url'] !='' ) $data['url'] = $input['url'];
 
 		if( $action=='add' ){
