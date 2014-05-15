@@ -152,7 +152,7 @@ $('body').on( "click", ".editTaskBtn", function(){
 		type: "POST",
 		success: function(response){
 			 $('#taskResponse'+taskSN).html(response);
-			 $('#res').delay(1500).fadeOut('fast');
+			 $('#res').delay(1000).fadeOut('fast');
 			 setTimeout( refreshTable(), 3000 );
 		}
 	});
@@ -167,17 +167,18 @@ $('body').on( "click", ".cancelTaskBtn", function(){
 
 /* DELETE A TASK */
 $('body').on( "click", ".delTaskBtn", function(){
-	var sn = $(this).data('task'),
-		name = $('#editTaskName'+sn).val();
+	var taskSN = $(this).data('task'),
+		name = $('#editTaskName'+taskSN).val();
+	console.log(taskSN, name)
 	if( confirm('確定刪除專案 "'+name+'" 嗎?') ){
 		$.ajax({
 			url: "/ajax/taskQuery/del",
-			data: { 'sn': sn },
+			data: { 'taskSN': taskSN },
 			type: "POST",
 			success: function(response){
-				$('#taskResponse'+sn).html(response);
-				$('#res').delay(1500).fadeOut('fast');
-				setTimeout( refreshTable(), 3000 );
+				$('#taskResponse'+taskSN).html(response);
+				$('#res').delay(1000).fadeOut('fast');
+				setTimeout( refreshTable(), 2000 );
 			}
 		});
 	}
