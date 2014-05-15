@@ -11,12 +11,13 @@ class ReportController extends BaseController {
 
 	public function ajaxReportList() 
 	{
-		$reports = DB::table('report')->get();
-		$reportPrint = '';
+		$reports = DB::table('report')->orderBy('sn','desc')->get();
+		$reportPrint = '<ul class="report-list">';
 		foreach( $reports as $report ){
 			$reportPrint .= '<li><a href="report/' 
 				. $report->sn . '/edit">週報表'. $report->start . '~' . $report->end . '</a></li>';
 		}
+		$reportPrint .= '</ul>';
 		return $reportPrint;
 	}
 

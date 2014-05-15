@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-	<ul class="report-list" id="reportList">
-	</ul>
+	<div id="reportList"></div>
 
 	<div class="margin-tb">
 		<a href="#" class="btn primary md toggle-btn" data-target="#addNewReport">+ 新增週報表</a>
