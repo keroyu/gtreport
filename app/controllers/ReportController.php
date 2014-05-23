@@ -4,9 +4,10 @@ class ReportController extends BaseController {
 
 	public function index() 
 	{
+		$data['thisPage'] = 'home';
 		$projects = DB::table('project')->lists('name');
 		$data['projects'] = json_encode($projects);
-		return View::make('report_list', $data);
+		return View::make('reports', $data);
 	}
 
 	public function ajaxReportList() 
@@ -33,6 +34,7 @@ class ReportController extends BaseController {
 
 	public function showReportPage($id,$mode) 
 	{
+		$data['thisPage'] = 'report';
 		$data['sn'] = $id;
 		$data['mode'] = $mode;
 
@@ -42,7 +44,7 @@ class ReportController extends BaseController {
 		$data['period'] = $print;
 
 		/* LIST AVAILABLE PROJECTS */
-		$projects = DB::table('project')->get();
+		$projects = DB::table('project')->where('display', 1)->get();
 		$print = '<option value="">-</option>';
 		foreach( $projects as $project)
 		{
@@ -51,8 +53,8 @@ class ReportController extends BaseController {
 		$data['selectPj'] = $print;
 
 		/* LIST AVAILABLE COWORKERS */
-		$coworkers = array_unique( DB::table('task')->lists('cowork'));
-		$data['coworkers'] = json_encode($coworkers);
+		// $coworkers = array_unique( DB::table('task')->lists('cowork'));
+		// $data['coworkers'] = json_encode($coworkers);
 
 		return View::make('report', $data);
 	}

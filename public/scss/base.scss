@@ -4,13 +4,17 @@ body {
   font-size: 13px;
   font-family: Verdana, Arial, Helvetica, sans-serif;
 }
-
+.nodisplay{ display: none; }
 .wrapper {
   background: #fff;
   margin: 0 auto;
   padding: 1px;
   width: 972px;
   box-shadow: 2px 2px 5px #555;
+}
+.notice-bar{
+  margin: 10px 40px 0 40px; padding: 10px;
+  &.success{ background: #B4D28F; color: #556F10; }
 }
 
 .toggle-target { display: none; }
@@ -34,6 +38,20 @@ body {
   width: 972px;
   height: 88px;
   background: url(../img/001.gif) no-repeat;
+}
+
+.bread-nav{
+  text-align: left; margin: 10px 20px;
+  border-left: 5px solid #ccc; border-bottom: 2px solid #ccc; 
+  padding: 0 0 5px 15px;
+  a{ 
+    display: inline-block; padding: 3px 8px; 
+    background: #eee; border-right: 3px solid #ccc;
+    &:last-child{ border-right: none; }
+    &:link, &:visited{ text-decoration: none; color: #555; }
+    &:hover{ color: #fff; background:#666; }
+    &.active{ color: #fff; background:#666;  }
+  }
 }
 
 p.intro-txt {
@@ -112,17 +130,45 @@ table {
   span.manageTask { display: none;  margin: 0 0 0 2px;}
 }
 
-
 .report-list {
   width: 900px; text-align: left; margin: 10px 0;
   li {
-    display: inline-block; width: 290px;
-    text-align: center; background: #878787;
+    display: inline-block; width: 290px;  line-height: 40px;
+    text-align: center; background: #2271BA; color: #fff;
     margin: 5px 2px; font-size: 15px;
-    &:hover{ background: #555; color: #fff; }
+    &.hidden{ background: #878787; }
     a {
-      width: 215px; line-height: 40px;
+      width: 100%; display: inline-block;
       &:visited, &:link {color: #eee; text-decoration: none; }
+    }
+  }
+}
+.project-list{
+  li{ 
+    width: 443px; 
+    i.controlDisplay{ 
+      float: left; position: relative; top: 10px; left: 8px; 
+      font-size: 22px; cursor: pointer;
+      &:hover{ color: #eee; }
+    }
+    .panel{ 
+      float: right; line-height: 20px; margin: 0px;
+      margin: 10px 10px 0 0; cursor: pointer;
+
+    }
+  }
+}
+
+.edit-area{
+  margin: 0 0 0 5px; color: #000; display: none;
+
+  i.fa{ 
+    background: #eee; padding: 3px 0; width: 20px; 
+    color: #555;
+    &:hover{ 
+      background: #fff;
+      &.submit{ color: #059505; }
+      &.cancel{ color: #f00; }
     }
   }
 }

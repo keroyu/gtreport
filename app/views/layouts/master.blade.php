@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/normalize.css">
 <script src="/js/all.min.js"></script>
-
 </head>
 <body>
 <div class="wrapper">
