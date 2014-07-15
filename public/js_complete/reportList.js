@@ -1,5 +1,5 @@
 (function() {
-  $("#reportList").html("<div class=\"text-center\"><img src=\"/img/loader.gif\" ></div>");
+  $("#reportList").html("<div class=\"text-center\"><img src=\"img/loader.gif\" ></div>");
 
   $("#reportList").delay(1500).load("ajax/reportList");
 
@@ -20,7 +20,7 @@
             var msg;
             msg = "成功新增 " + response + " 的週報表!!";
             alert(msg);
-            $("#reportList").html("<div class=\"text-center\"><img src=\"/img/loader.gif\" ></div>").load("ajax/reportList");
+            $("#reportList").html("<div class=\"text-center\"><img src=\"img/loader.gif\" ></div>").load("ajax/reportList");
           }
         });
       }
